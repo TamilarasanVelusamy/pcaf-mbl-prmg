@@ -22,7 +22,7 @@ let package = Package(
             name: "pcaf-mbl-prmg",
             dependencies: [.product(name: "Zip", package: "Zip")]),
         .testTarget(
-            name: "pcaf-mbl-prmgTest",
+            name: "pcaf-mbl-prmgTests",
             dependencies: ["pcaf-mbl-prmg"])
     ]
 )
