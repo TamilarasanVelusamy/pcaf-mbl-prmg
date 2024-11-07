@@ -1,0 +1,6 @@
+framework module FWUpdateSDK {
+  umbrella header "FWUpdateSDK.h"
+
+  export *
+  module * { export * }
+}
