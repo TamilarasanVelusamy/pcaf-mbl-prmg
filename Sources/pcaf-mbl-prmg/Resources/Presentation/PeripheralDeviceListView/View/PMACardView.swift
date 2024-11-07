@@ -27,10 +27,6 @@ struct PMACardView: View {
                                 NavigationLink(destination: UnitechHomeView().hiddenNavigationBarStyle()){
                                     PMACardSubView(device: device)
                                 }
-                            case PMAConstants.Titles.dexCapital:
-                                NavigationLink(destination: HoneywellHomeView().hiddenNavigationBarStyle()){
-                                    PMACardSubView(device: device)
-                                }
                             default:
                                 PMACardSubView(device: device)
                             }
