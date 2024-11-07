@@ -13,6 +13,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+            .package(path: "./Sources/PepNetworkingPackage"),
         .package(url: "https://github.com/marmelroy/Zip.git", .upToNextMajor(from: "2.1.2"))
     ],
     targets: [
@@ -20,7 +21,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "pcaf-mbl-prmg",
-            dependencies: [.product(name: "Zip", package: "Zip")]),
+            dependencies: [.product(name: "PepNetworkingPackage", package: "PepNetworkingPackage"),.product(name: "Zip", package: "Zip")]),
         .testTarget(
             name: "pcaf-mbl-prmgTests",
             dependencies: ["pcaf-mbl-prmg"])
