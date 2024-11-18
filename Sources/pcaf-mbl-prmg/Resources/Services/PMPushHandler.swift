@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import PepNetworkingPackage
 
 public class PMPushHandler: NSObject {
 

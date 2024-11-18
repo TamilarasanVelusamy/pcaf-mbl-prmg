@@ -82,7 +82,7 @@ public struct NetworkDispatcher {
                     }
                     throw httpError(response.statusCode)
                 }
-                print(String(data: data, encoding: .utf8))
+//                print(String(data: data, encoding: .utf8))
                 // Return Response data
                 return data
             })

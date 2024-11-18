@@ -77,7 +77,6 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/marmelroy/Zip.git", from: "2.1.2"),
-        .package(path: "./Sources/PepNetworkingPackage")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -90,7 +89,7 @@ let package = Package(
             path: "./Sources/pcaf-mbl-prmg/FWUpdateSDK.xcframework"),
         .target(
                 name: "pcaf-mbl-prmg",
-                dependencies: [.target(name: "BRLMPrinterKit"),.target(name: "FWUpdateSDK"),.product(name: "PepNetworkingPackage", package: "PepNetworkingPackage"),.product(name: "Zip", package: "Zip")],
+                dependencies: [.target(name: "BRLMPrinterKit"),.target(name: "FWUpdateSDK"),.product(name: "Zip", package: "Zip")],
                 path: "./Sources/pcaf-mbl-prmg",
                 resources: [
                     .process("PeripheralManagementAssets.xcassets"),

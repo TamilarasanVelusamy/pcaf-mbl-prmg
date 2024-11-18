@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import PepNetworkingPackage
 
 /// Protocol for download Firmware file and firmware information
 protocol PMADownloadRepositoryProtocol: AnyObject {

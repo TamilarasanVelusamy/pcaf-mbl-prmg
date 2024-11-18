@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import PepNetworkingPackage
 
 struct GetPeripheralFileRequest: APIRequest {
     var path: String
