@@ -19,20 +19,19 @@
   #####
     - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 4). Verify Info.plist Configuration:
+  **Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary**
   #####
-  Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary
-    - Privacy - Bluetooth Always Usage Description (Replace with your specific description).
-    - Privacy - Bluetooth Peripheral Usage Description (Replace with your specific description).
+    - Privacy Bluetooth Always Usage Description (Replace with your specific description).
+    - Privacy Bluetooth Peripheral Usage Description (Replace with your specific description).
     - Add the supported external accessory protocols for your devices under the UISupportedExternalAccessoryProtocols key (Refer to device documentation for specific protocol names).
 
 5). Airship Keys Configuration Based on Environment:
   #####
-  Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary
     - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 
 6). Device Management Enable Background Modes:
+  **Go to your Project Target settings and enable the following Background Modes**
   #####
-  Go to your Project Target settings and enable the following Background Modes
     - External Accessory Communication.
     - Uses Bluetooth LE accessory.
     - Background Fetch.
