@@ -1,17 +1,3 @@
-* **Feature A**
-  1. Subfeature 1
-     ```swift
-     Privacy Bluetooth Always Usage Description (Replace with your specific description).
-     ```
-  3. Subfeature 2
-     Privacy Bluetooth Always Usage Description (Replace with your specific description).
-  4. Subfeature 3
-     Privacy Bluetooth Always Usage Description (Replace with your specific description).
-* **Feature B**
-  1. Subfeature 1
-  2. Subfeature 2
-* **Feature C**
-
 
 # Integrating pcaf-mbl-prmg Framework and Dependencies
   This document outlines the steps to integrate the pcaf-mbl-prmg framework and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications. 
@@ -126,7 +112,6 @@ struct PMAErrorMessage {
 
 }
 ```
-# Register 
 - Create a new Swift file named "PushHandler.swift" and add the provided code for handling background and foreground notifications, as well as notification responses.
 ```swift
 
@@ -168,7 +153,6 @@ class PushHandler: NSObject, PushNotificationDelegate {
     }
 }
 ```
-# Register 
 - Create a new Swift file named "PMPackageLogger.swift" and add the provided code for logging messages to a file.
 ```swift
   
@@ -236,21 +220,80 @@ Open your project's Info.plist file and add the following key-value pairs under 
 - Privacy Bluetooth Always Usage Description (Replace with your specific description).
 - Privacy Bluetooth Peripheral Usage Description (Replace with your specific description).
 - Add the supported external accessory protocols for your devices under the UISupportedExternalAccessoryProtocols key (Refer to device documentation for specific protocol names).
+```swift
+<dict>
+
+    <key>UISupportedExternalAccessoryProtocols</key>
+
+    <array>
+
+        <string>jp.co.asx.asreader.6dongle.ask</string>
+
+        <string>jp.co.asx.asreader.gun</string>
+
+        <string>kr.co.sps.sreader.universal.sr120</string>
+
+        <string>com.brother.ptcbp</string>
+
+        <string>jp.co.asx.asreader.6dongle.barcode</string>
+
+        <string>jp.co.asx.asreader</string>
+
+        <string>jp.co.asx.asreader.barcode</string>
+
+        <string>jp.co.asx.asreader.0230D</string>
+
+        <string>jp.co.asx.asreader.0240D</string>
+
+        <string>jp.co.asx.asreader.nfc</string>
+
+        <string>jp.co.asx.asreader.6dongle.rfid</string>
+
+        <string>jp.co.asx.asreader.rfid</string>
+
+    </array>
+
+    <key>NSBluetoothAlwaysUsageDescription</key>
+
+    <string>Please tap &quot;OK&quot; to help detect Display Equipment.</string>
+
+    <key>NSBluetoothPeripheralUsageDescription</key>
+
+    <string>Please allow Bluetooth peripherals to be used</string>
+
+</dict>
+```
 # Airship Keys Configuration Based on Environment:
 - Add placeholder keys for Airship development and production app keys and secrets to your Info.plist file.
 - In your configuration files (Prod/QA/Debug), define the actual values for these keys.
 - Use the SPEnvironment class to fetch the appropriate key values based on the current environment.
 # Device Management Enable Background Modes:
 Go to your Project Target settings and enable the following Background Modes.
+```swift
 - External Accessory Communication.
 - Uses Bluetooth LE accessory.
 - Background Fetch.
 - Background Processing.
 - Remote Notification.
+```
 # Launch Device Management View Function:
 - Use the function **AppDelegate.instance.pmComposer.launchDeviceManagement()** to launch the Device Management SwiftUI View within your app.
+
+
+
+
 # Code snippets:
 - Update the Code snippets to the respective .swift Files.
+
+
+
+
+
+
+
+
+
+
 
 # AppDelegate.swift
 ```swift
