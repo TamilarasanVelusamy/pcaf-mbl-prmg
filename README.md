@@ -24,13 +24,22 @@
 - Go to your project target settings.
 - Navigate to the "Swift Packages" tab.
 - Click the "+" button and choose "Add Package Dependency."
-- Paste the URL https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg in the search bar and click "Add Package."
+- Paste the URL **https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg** in the search bar and click "Add Package."
 # Add Airship Package:
-- Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
+- Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL **https://github.com/urbanairship/ios-library.git**.
 # Register for Package Logs and Airship Notifications:
 - Add the provided code snippets for PMComposer, PMPackageLogger, and error handling to your AppDelegate's didFinishLaunchingWithOptions function in "AppDelegate.swift".
+  ```swift
+     Privacy Bluetooth Always Usage Description (Replace with your specific description).
+  ```
 - Create a new Swift file named "PushHandler.swift" and add the provided code for handling background and foreground notifications, as well as notification responses.
+  ```swift
+     Privacy Bluetooth Always Usage Description (Replace with your specific description).
+  ```
 - Create a new Swift file named "PMPackageLogger.swift" and add the provided code for logging messages to a file.
+  ```swift
+     Privacy Bluetooth Always Usage Description (Replace with your specific description).
+  ```
 # Verify Info.plist Configuration:
 Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary.
 - Privacy Bluetooth Always Usage Description (Replace with your specific description).
