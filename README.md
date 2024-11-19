@@ -1,5 +1,26 @@
 # Integrating pcaf-mbl-prmg Framework and Dependencies
-## This document outlines the steps to integrate the pcaf-mbl-prmg framework and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications.
+  This document outlines the steps to integrate the pcaf-mbl-prmg framework and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications.
+
+  
+# Supported Devices and Frameworks:
+  The document details supported devices and their corresponding frameworks:
+- Brother Printer: BRLMPrinterKit.xcframework
+- Unitech Scanner: FWUpdateSDK.xcframework 
+- HoneyWell Dex: frameworkDEXUpgradeSDK.xcframework (Disabled now)
+
+
+# Package Integration Steps:
+- Add pcaf-mbl-prmg Package:
+  #####
+  Go to your project target settings.
+Navigate to the "Swift Packages" tab.
+Click the "+" button and choose "Add Package Dependency."
+Paste the URL https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg in the search bar and click "Add Package."
+
+  
+- Add Airship Package:
+  #####
+  Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 
 ### Supported Devices and Frameworks
 **The document details supported devices and their corresponding frameworks:**
