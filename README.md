@@ -1,21 +1,22 @@
-Integrating pcaf-mbl-prmg Framework and Dependencies
-This document outlines the steps to integrate the pcaf-mbl-prmg framework and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications.
+# Integrating pcaf-mbl-prmg Framework and Dependencies
+## This document outlines the steps to integrate the pcaf-mbl-prmg framework and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications.
 
-Supported Devices and Frameworks
-The document details supported devices and their corresponding frameworks:
-
+### Supported Devices and Frameworks
+**The document details supported devices and their corresponding frameworks:**
+#####
 Brother Printer: BRLMPrinterKit.xcframework
 Unitech Scanner: FWUpdateSDK.xcframework
 HoneyWell Dex: frameworkDEXUpgradeSDK.xcframework
-Integration Steps
-Add pcaf-mbl-prmg Package:
 
+# Integration Steps
+**Add pcaf-mbl-prmg Package:**
+#####
 Go to your project target settings.
 Navigate to the "Swift Packages" tab.
 Click the "+" button and choose "Add Package Dependency."
 Paste the URL https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg in the search bar and click "Add Package."
-Add Airship Package:
-
+**Add Airship Package:**
+#####
 Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 Register for Package Logs and Airship Notifications:
 
@@ -58,48 +59,6 @@ The document includes the definition of the LogFileNames enum for specifying the
 # Login.swift
 
 **A basic login screen implementation in Swift:**
-
-```swift
-
-import Foundation
-import AirshipCore
-
-class PushHandler: NSObject, PushNotificationDelegate {
- 
-    ///  Application received a background notification
-    func receivedBackgroundNotification(_ userInfo: [AnyHashable: Any], completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
-      
-         Log.info(("The application received a background notification"), app: .salesplusfl)
-    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
-        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
-    }
-    
-    /// Application received a foreground notification
-    func receivedForegroundNotification(_ userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
-         Log.info(("The application received a foreground notification"), app: .salesplusfl)
-    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
-        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
-    }
-    
-    /// Application received  notification
-    func receivedNotificationResponse(_ notificationResponse: UNNotificationResponse, completionHandler: @escaping () -> Swift.Void) {
-        completionHandler()
-    }
-    
-    func extend(_ options: UNNotificationPresentationOptions = [], notification: UNNotification) -> UNNotificationPresentationOptions {
-    #if !targetEnvironment(macCatalyst)
-        if #available(iOS 14.0, *) {
-            return options.union([.banner, .list, .sound])
-        } else {
-            return options.union([.alert, .sound])
-        }
-    #else
-        return options.union([.alert, .sound])
-    #endif
-    }
-}
-
-
 
 
 
@@ -511,4 +470,47 @@ enum LogFileNames: String, CaseIterable {
     case pmLogFileName = "FL_PMLog"
 }
 ######
+
+
+
+# Login.swift
+
+**A basic login screen implementation in Swift:**
+
+```swift
+import UIKit
+
+class LoginViewController: UIViewController {
+
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Customize the appearance of the login button
+        loginButton.layer.cornerRadius = 10
+        loginButton.backgroundColor = .systemBlue
+        loginButton.setTitleColor(.white, for: .normal)
+    }
+
+    @IBAction func loginButtonPressed(_ sender: UIButton) {
+        // Retrieve username and password from text fields
+        let username = usernameTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
+
+        // Implement your login logic here, such as network requests or local authentication
+        // For example, you might check if the username and password are valid:
+        if username == "your_username" && password == "your_password" {
+            // Successful login, navigate to the next screen
+            performSegue(withIdentifier: "showHomeScreen", sender: self)
+        } else {
+            // Invalid credentials, display an error message
+            let alert = UIAlertController(title: "Error", message: "Invalid username or password", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
+}
 
