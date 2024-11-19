@@ -35,13 +35,114 @@ Go to your Project Target settings and enable the following Background Modes.
 # Launch Device Management View Function:
 - Use the function AppDelegate.instance.pmComposer.launchDeviceManagement() to launch the Device Management SwiftUI View within your app.
 # Code snippets:
-- Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
-
-# Login.swift
-
-**A basic login screen implementation in Swift:**
+- Update the Code snippets to the respective .swift Files.
 
 ```swift
+
+
+
+//  PMPackageLogger.swift
+
+import Foundation
+import pcaf_mbl_fwrk_alog
+import pcaf_mbl_auth
+import pcaf_mbl_prmg
+
+typealias PMLogMetadata = pcaf_mbl_auth.LogMetadata
+
+protocol PMPackageLoggerProtocol {
+    func logAuthFileMessages(logType: PMLogLevel,
+                             message: String)
+    var fileLogger: LoggerProtocol? {get set}
+}
+
+class PMPackageLogger: PMPackageLoggerProtocol {
+    
+    internal var fileLogger: LoggerProtocol?
+    let logComposer: LogComposerFactory
+    let fileName: String
+
+    init(logComposer: LogComposerFactory,
+         fileName: String) {
+        self.logComposer = logComposer
+        self.fileName = fileName
+        createAuthLogInstance()
+    }
+}
+
+extension PMPackageLogger {
+    // Log to file
+    func logAuthFileMessages(logType: PMLogLevel,
+                             message: String) {
+        log(logType, message: message)
+    }
+}
+
+// MARK: Create file destination
+extension PMPackageLogger {
+    private func createAuthLogInstance() {
+        let loggerObj = logComposer.makeLogger(with: [SPConstant.authPrefix: [fileName]])
+        fileLogger = loggerObj
+    }
+}
+
+extension PMPackageLogger {
+    func log(_ level: PMLogLevel, message: String) {
+        let metaData = pcaf_mbl_fwrk_alog.LogMetadata(file: metaData.file, function: metaData.function,
+                                                      line: metaData.line)
+        switch level {
+        case .verbose:
+            fileLogger?.logVerbose(message: message, logFileName: fileName, context: nil, metadata:metaData)
+        case .warning:
+            fileLogger?.logWarning(message: message, logFileName: fileName, context: nil, metadata:metaData)
+        case .error:
+            fileLogger?.logCustom(level: .error, message: message, logFileName: fileName, context: nil, metadata:metaData)
+        }
+    }
+}
+
+
+//  PushHandler.swift
+
+import Foundation
+import AirshipCore
+
+class PushHandler: NSObject, PushNotificationDelegate {
+ 
+    ///  Application received a background notification
+    func receivedBackgroundNotification(_ userInfo: [AnyHashable: Any], completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+      
+         Log.info(("The application received a background notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received a foreground notification
+    func receivedForegroundNotification(_ userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
+         Log.info(("The application received a foreground notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received  notification
+    func receivedNotificationResponse(_ notificationResponse: UNNotificationResponse, completionHandler: @escaping () -> Swift.Void) {
+        completionHandler()
+    }
+    
+    func extend(_ options: UNNotificationPresentationOptions = [], notification: UNNotification) -> UNNotificationPresentationOptions {
+    #if !targetEnvironment(macCatalyst)
+        if #available(iOS 14.0, *) {
+            return options.union([.banner, .list, .sound])
+        } else {
+            return options.union([.alert, .sound])
+        }
+    #else
+        return options.union([.alert, .sound])
+    #endif
+    }
+}
+
+
 
 ```
 
