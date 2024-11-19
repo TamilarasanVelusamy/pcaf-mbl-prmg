@@ -1,8 +1,8 @@
 * **Feature A**
   1. Subfeature 1
-     #####
+     ```swift
      Privacy Bluetooth Always Usage Description (Replace with your specific description).
-     #####
+     ```
   3. Subfeature 2
      Privacy Bluetooth Always Usage Description (Replace with your specific description).
   4. Subfeature 3
