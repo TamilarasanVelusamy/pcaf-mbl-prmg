@@ -1,3 +1,13 @@
+* **Feature A**
+  1. Subfeature 1
+  2. Subfeature 2
+  3. Subfeature 3
+* **Feature B**
+  1. Subfeature 1
+  2. Subfeature 2
+* **Feature C**
+
+
 # Integrating pcaf-mbl-prmg Framework and Dependencies
   This document outlines the steps to integrate the pcaf-mbl-prmg framework and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications. 
 # Supported Devices and Frameworks:
