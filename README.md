@@ -27,14 +27,14 @@ Open your project's Info.plist file and add the following key-value pairs under 
 
 5). Airship Keys Configuration Based on Environment:
 
-- Add placeholder keys for Airship development and production app keys and secrets to your Info.plist file.
+Add placeholder keys for Airship development and production app keys and secrets to your Info.plist file.
   #####
-  configuration
-- In your configuration files (Prod/QA/Debug), define the actual values for these keys.
+  - configuration
+In your configuration files (Prod/QA/Debug), define the actual values for these keys.
   #####
-  configuration
-- Use the SPEnvironment class to fetch the appropriate key values based on the current environment.
-  configuration
+  - configuration
+Use the SPEnvironment class to fetch the appropriate key values based on the current environment.
+  - configuration
 
 6). Device Management Enable Background Modes:
 #####
