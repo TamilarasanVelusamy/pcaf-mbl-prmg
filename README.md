@@ -37,10 +37,106 @@ Go to your Project Target settings and enable the following Background Modes.
 # Code snippets:
 - Update the Code snippets to the respective .swift Files.
 
+# AppDelegate.swift
 ```swift
 
+import pcaf_mbl_prmg
+import AirshipCore
 
+class AppDelegate: NSObject, UIApplicationDelegate, RegistrationDelegate{
+    private(set) var pmComposer: PMComposer!
+    private(set) var pmPackageLogger: PMPackageLoggerProtocol!
+    var window: UIWindow?
+    let pushHandler = PushHandler()
+    static private(set) var instance: AppDelegate! = nil
 
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)
+    -> Bool {
+        AppDelegate.instance = self
+        
+        func makePMPackageLogger() -> PMPackageLoggerProtocol {
+            PMPackageLogger(logComposer: logComposer, fileName: LogFileNames.pmLogFileName.rawValue)
+        }
+        self.pmPackageLogger = makePMPackageLogger()
+        
+        func makePMComposer() -> PMComposer {
+            PMComposer(logLevel: .verbose, logFileMessages: pmPackageLogger.logAuthFileMessages)
+        }
+        self.pmComposer = makePMComposer()
+        // Airship - Call Configure Airship function from AppDelegate extention class
+        configureAirship(launchOptions: launchOptions)
+        return true
+    }
+}
+// pcaf_mbl_prmg Extension
+extension AppDelegate {
+    
+    /**
+     * This methods called when Airship configuration failed
+     * called from within your application delegate's `configureAirship(launchOptions:` method
+     * to show invalid config alert
+     */
+
+    func configureAirship(launchOptions: [UIApplication.LaunchOptionsKey : Any]?){
+        /// Creates an instance using the values set in the `AirshipConfig.plist` file.
+        let config = AirshipConfig.default()
+        
+        config.developmentAppKey = SPEnvironment.airshipDevAppKey
+        config.developmentAppSecret = SPEnvironment.airshipDevAppSecretKey
+        config.productionAppKey = SPEnvironment.airshipProdAppKey
+        config.productionAppSecret = SPEnvironment.airshipProdAppSecretKey
+        
+        if (config.validate() != true) {
+            self.showInvalidConfigAlert()
+            return
+        }
+        
+//        config.enabledFeatures = .all
+//        config.productionLogLevel = .verbose
+//        config.developmentLogLevel = .verbose
+        /// Log detailed tracing messages.
+        Airship.logLevel = .debug
+        /// Setting the Airship default message center style configuration file
+        config.messageCenterStyleConfig = "UAMessageCenterDefaultStyle"
+//         Log.info(("Airship Config:\n \(config)", app: .salesplusfl)
+
+        /// Initalizes Airship with the use of take off function.
+        Airship.takeOff(config, launchOptions: launchOptions)
+//        Airship.privacyManager.enabledFeatures = .all
+        /// setting Airship notification style and registring for delegate
+        Airship.push.pushNotificationDelegate = pushHandler
+        Airship.push.registrationDelegate = self
+        Airship.push.defaultPresentationOptions = [.banner, .badge, .sound]
+        Airship.push.userPushNotificationsEnabled = true
+    }
+    
+    func showInvalidConfigAlert() {
+        let alertController = UIAlertController.init(title: PMAErrorMessage.invalidConfigration, message: PMAErrorMessage.airShipConfigMsg, preferredStyle:.actionSheet)
+        alertController.addAction(UIAlertAction.init(title: PMAErrorMessage.okayTitle, style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+        }))
+
+        DispatchQueue.main.async {
+            alertController.popoverPresentationController?.sourceView = self.window?.rootViewController?.view
+
+            self.window?.rootViewController?.present(alertController, animated:true, completion: nil)
+        }
+    }
+    /// Airship Push Notification Handle Events For Background URLSession:
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+         Log.info(("Airship Push Notification Handle Events For Background URLSession: \(identifier)"), app: .salesproplus)
+    }
+    
+}
+struct PMAErrorMessage {
+    static let invalidConfigration = "Invalid AirshipConfig.plist"
+    static let airShipConfigMsg = "The AirshipConfig.plist must be a part of the app bundle and include a valid appkey and secret for the selected production level."
+    static let okayTitle = "Okay"
+
+}
+```
+# PMPackageLogger.swift
+```swift
 //  PMPackageLogger.swift
 
 import Foundation
@@ -101,6 +197,10 @@ extension PMPackageLogger {
     }
 }
 
+```
+
+
+# PushHandler.swift
 
 //  PushHandler.swift
 
