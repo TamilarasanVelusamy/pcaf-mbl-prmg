@@ -30,15 +30,204 @@
 # Register for Package Logs and Airship Notifications:
 - Add the provided code snippets for PMComposer, PMPackageLogger, and error handling to your AppDelegate's didFinishLaunchingWithOptions function in "AppDelegate.swift".
   ```swift
-     Privacy Bluetooth Always Usage Description (Replace with your specific description).
+  
+import pcaf_mbl_prmg
+import AirshipCore
+
+class AppDelegate: NSObject, UIApplicationDelegate, RegistrationDelegate{
+    private(set) var pmComposer: PMComposer!
+    private(set) var pmPackageLogger: PMPackageLoggerProtocol!
+    var window: UIWindow?
+    let pushHandler = PushHandler()
+    static private(set) var instance: AppDelegate! = nil
+
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil)
+    -> Bool {
+        AppDelegate.instance = self
+        
+        func makePMPackageLogger() -> PMPackageLoggerProtocol {
+            PMPackageLogger(logComposer: logComposer, fileName: LogFileNames.pmLogFileName.rawValue)
+        }
+        self.pmPackageLogger = makePMPackageLogger()
+        
+        func makePMComposer() -> PMComposer {
+            PMComposer(logLevel: .verbose, logFileMessages: pmPackageLogger.logAuthFileMessages)
+        }
+        self.pmComposer = makePMComposer()
+        // Airship - Call Configure Airship function from AppDelegate extention class
+        configureAirship(launchOptions: launchOptions)
+        return true
+    }
+}
+// pcaf_mbl_prmg Extension
+extension AppDelegate {
+    
+    /**
+     * This methods called when Airship configuration failed
+     * called from within your application delegate's `configureAirship(launchOptions:` method
+     * to show invalid config alert
+     */
+
+    func configureAirship(launchOptions: [UIApplication.LaunchOptionsKey : Any]?){
+        /// Creates an instance using the values set in the `AirshipConfig.plist` file.
+        let config = AirshipConfig.default()
+        
+        config.developmentAppKey = SPEnvironment.airshipDevAppKey
+        config.developmentAppSecret = SPEnvironment.airshipDevAppSecretKey
+        config.productionAppKey = SPEnvironment.airshipProdAppKey
+        config.productionAppSecret = SPEnvironment.airshipProdAppSecretKey
+        
+        if (config.validate() != true) {
+            self.showInvalidConfigAlert()
+            return
+        }
+        
+//        config.enabledFeatures = .all
+//        config.productionLogLevel = .verbose
+//        config.developmentLogLevel = .verbose
+        /// Log detailed tracing messages.
+        Airship.logLevel = .debug
+        /// Setting the Airship default message center style configuration file
+        config.messageCenterStyleConfig = "UAMessageCenterDefaultStyle"
+//         Log.info(("Airship Config:\n \(config)", app: .salesplusfl)
+
+        /// Initalizes Airship with the use of take off function.
+        Airship.takeOff(config, launchOptions: launchOptions)
+//        Airship.privacyManager.enabledFeatures = .all
+        /// setting Airship notification style and registring for delegate
+        Airship.push.pushNotificationDelegate = pushHandler
+        Airship.push.registrationDelegate = self
+        Airship.push.defaultPresentationOptions = [.banner, .badge, .sound]
+        Airship.push.userPushNotificationsEnabled = true
+    }
+    
+    func showInvalidConfigAlert() {
+        let alertController = UIAlertController.init(title: PMAErrorMessage.invalidConfigration, message: PMAErrorMessage.airShipConfigMsg, preferredStyle:.actionSheet)
+        alertController.addAction(UIAlertAction.init(title: PMAErrorMessage.okayTitle, style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+        }))
+
+        DispatchQueue.main.async {
+            alertController.popoverPresentationController?.sourceView = self.window?.rootViewController?.view
+
+            self.window?.rootViewController?.present(alertController, animated:true, completion: nil)
+        }
+    }
+    /// Airship Push Notification Handle Events For Background URLSession:
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+         Log.info(("Airship Push Notification Handle Events For Background URLSession: \(identifier)"), app: .salesproplus)
+    }
+    
+}
+struct PMAErrorMessage {
+    static let invalidConfigration = "Invalid AirshipConfig.plist"
+    static let airShipConfigMsg = "The AirshipConfig.plist must be a part of the app bundle and include a valid appkey and secret for the selected production level."
+    static let okayTitle = "Okay"
+
+}
   ```
 - Create a new Swift file named "PushHandler.swift" and add the provided code for handling background and foreground notifications, as well as notification responses.
   ```swift
-     Privacy Bluetooth Always Usage Description (Replace with your specific description).
+
+import Foundation
+import AirshipCore
+
+class PushHandler: NSObject, PushNotificationDelegate {
+ 
+    ///  Application received a background notification
+    func receivedBackgroundNotification(_ userInfo: [AnyHashable: Any], completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+      
+         Log.info(("The application received a background notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received a foreground notification
+    func receivedForegroundNotification(_ userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
+         Log.info(("The application received a foreground notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received  notification
+    func receivedNotificationResponse(_ notificationResponse: UNNotificationResponse, completionHandler: @escaping () -> Swift.Void) {
+        completionHandler()
+    }
+    
+    func extend(_ options: UNNotificationPresentationOptions = [], notification: UNNotification) -> UNNotificationPresentationOptions {
+    #if !targetEnvironment(macCatalyst)
+        if #available(iOS 14.0, *) {
+            return options.union([.banner, .list, .sound])
+        } else {
+            return options.union([.alert, .sound])
+        }
+    #else
+        return options.union([.alert, .sound])
+    #endif
+    }
+}
   ```
 - Create a new Swift file named "PMPackageLogger.swift" and add the provided code for logging messages to a file.
   ```swift
-     Privacy Bluetooth Always Usage Description (Replace with your specific description).
+  
+import Foundation
+import pcaf_mbl_fwrk_alog
+import pcaf_mbl_auth
+import pcaf_mbl_prmg
+
+typealias PMLogMetadata = pcaf_mbl_auth.LogMetadata
+
+protocol PMPackageLoggerProtocol {
+    func logAuthFileMessages(logType: PMLogLevel,
+                             message: String)
+    var fileLogger: LoggerProtocol? {get set}
+}
+
+class PMPackageLogger: PMPackageLoggerProtocol {
+    
+    internal var fileLogger: LoggerProtocol?
+    let logComposer: LogComposerFactory
+    let fileName: String
+
+    init(logComposer: LogComposerFactory,
+         fileName: String) {
+        self.logComposer = logComposer
+        self.fileName = fileName
+        createAuthLogInstance()
+    }
+}
+
+extension PMPackageLogger {
+    // Log to file
+    func logAuthFileMessages(logType: PMLogLevel,
+                             message: String) {
+        log(logType, message: message)
+    }
+}
+
+// MARK: Create file destination
+extension PMPackageLogger {
+    private func createAuthLogInstance() {
+        let loggerObj = logComposer.makeLogger(with: [SPConstant.authPrefix: [fileName]])
+        fileLogger = loggerObj
+    }
+}
+
+extension PMPackageLogger {
+    func log(_ level: PMLogLevel, message: String) {
+        let metaData = pcaf_mbl_fwrk_alog.LogMetadata(file: metaData.file, function: metaData.function,
+                                                      line: metaData.line)
+        switch level {
+        case .verbose:
+            fileLogger?.logVerbose(message: message, logFileName: fileName, context: nil, metadata:metaData)
+        case .warning:
+            fileLogger?.logWarning(message: message, logFileName: fileName, context: nil, metadata:metaData)
+        case .error:
+            fileLogger?.logCustom(level: .error, message: message, logFileName: fileName, context: nil, metadata:metaData)
+        }
+    }
+}
+
   ```
 # Verify Info.plist Configuration:
 Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary.
@@ -57,7 +246,7 @@ Go to your Project Target settings and enable the following Background Modes.
 - Background Processing.
 - Remote Notification.
 # Launch Device Management View Function:
-- Use the function AppDelegate.instance.pmComposer.launchDeviceManagement() to launch the Device Management SwiftUI View within your app.
+- Use the function **AppDelegate.instance.pmComposer.launchDeviceManagement()** to launch the Device Management SwiftUI View within your app.
 # Code snippets:
 - Update the Code snippets to the respective .swift Files.
 
