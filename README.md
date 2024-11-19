@@ -7,20 +7,16 @@
 - HoneyWell Dex: frameworkDEXUpgradeSDK.xcframework (Disabled now)
 # Package Integration Steps:
 1). Add pcaf-mbl-prmg Package:
-  #####
     - Go to your project target settings.
     - Navigate to the "Swift Packages" tab.
     - Click the "+" button and choose "Add Package Dependency."
     - Paste the URL https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg in the search bar and click "Add Package."
 2). Add Airship Package:
-  #####
     - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 3). Register for Package Logs and Airship Notifications:
-  #####
     - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 4). Verify Info.plist Configuration:
-  **Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary**
-  #####
+  Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary.
     - Privacy Bluetooth Always Usage Description (Replace with your specific description).
     - Privacy Bluetooth Peripheral Usage Description (Replace with your specific description).
     - Add the supported external accessory protocols for your devices under the UISupportedExternalAccessoryProtocols key (Refer to device documentation for specific protocol names).
@@ -30,8 +26,7 @@
     - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 
 6). Device Management Enable Background Modes:
-  **Go to your Project Target settings and enable the following Background Modes**
-  #####
+  Go to your Project Target settings and enable the following Background Modes.
     - External Accessory Communication.
     - Uses Bluetooth LE accessory.
     - Background Fetch.
