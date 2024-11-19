@@ -222,45 +222,25 @@ Open your project's **Info.plist** file and add the following key-value pairs un
 - Add the supported external accessory protocols for your devices under the UISupportedExternalAccessoryProtocols key.
 ```swift
 <dict>
-
     <key>UISupportedExternalAccessoryProtocols</key>
-
     <array>
-
         <string>jp.co.asx.asreader.6dongle.ask</string>
-
         <string>jp.co.asx.asreader.gun</string>
-
         <string>kr.co.sps.sreader.universal.sr120</string>
-
         <string>com.brother.ptcbp</string>
-
         <string>jp.co.asx.asreader.6dongle.barcode</string>
-
         <string>jp.co.asx.asreader</string>
-
         <string>jp.co.asx.asreader.barcode</string>
-
         <string>jp.co.asx.asreader.0230D</string>
-
         <string>jp.co.asx.asreader.0240D</string>
-
         <string>jp.co.asx.asreader.nfc</string>
-
         <string>jp.co.asx.asreader.6dongle.rfid</string>
-
         <string>jp.co.asx.asreader.rfid</string>
-
     </array>
-
     <key>NSBluetoothAlwaysUsageDescription</key>
-
     <string>Please tap &quot;OK&quot; to help detect Display Equipment.</string>
-
     <key>NSBluetoothPeripheralUsageDescription</key>
-
     <string>Please allow Bluetooth peripherals to be used</string>
-
 </dict>
 ```
 # Airship Keys Configuration Based on Environment:
