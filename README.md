@@ -335,8 +335,8 @@ extension PMPackageLogger {
     Function returns Device Management SwiftUI View
     Can be used directly in Body of SwiftUI View
     
-  ######  
-    AppDelegate.instance.pmComposer.launchDeviceManagement()    
+    AppDelegate.instance.pmComposer.launchDeviceManagement() 
+    ######
 
     
 # 7.  Airship Keys Configration based on Environment
