@@ -1,5 +1,5 @@
 # Introduction
-The pcaf-mbl-prmg framework is a robust solution designed to streamline the integration and management of peripheral devices within mobile applications. It provides a unified approach to handle various device firmware updates including printers, scanners and dex.
+The **pcaf-mbl-prmg** package is a robust solution designed to streamline the integration and management of peripheral devices within mobile applications. It provides a unified approach to handle various device firmware updates including printers, scanners and dex.
 
 # Integrating pcaf-mbl-prmg Swift Package and Dependencies
   This document outlines the steps to integrate the pcaf-mbl-prmg using SPM and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications. 
