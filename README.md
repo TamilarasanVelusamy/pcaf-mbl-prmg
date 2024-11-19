@@ -6,7 +6,6 @@
 - Unitech Scanner: FWUpdateSDK.xcframework 
 - HoneyWell Dex: frameworkDEXUpgradeSDK.xcframework (Disabled now)
 # pcaf-mbl-prmg Package Integration Steps:
-
 - Go to your project target settings.
 - Navigate to the "Swift Packages" tab.
 - Click the "+" button and choose "Add Package Dependency."
@@ -15,8 +14,125 @@
 - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 # Register for Package Logs and Airship Notifications:
 - Add the provided code snippets for PMComposer, PMPackageLogger, and error handling to your AppDelegate's didFinishLaunchingWithOptions function in "AppDelegate.swift".
+  ```swift
+
+  ```
 - Create a new Swift file named "PushHandler.swift" and add the provided code for handling background and foreground notifications, as well as notification responses.
+  ```swift
+//
+//  PushHandler.swift
+//  SalesPlusFL
+//
+//  Created by tamilarasan_v on 18/11/24.
+//
+
+import Foundation
+import AirshipCore
+
+class PushHandler: NSObject, PushNotificationDelegate {
+ 
+    ///  Application received a background notification
+    func receivedBackgroundNotification(_ userInfo: [AnyHashable: Any], completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+      
+         Log.info(("The application received a background notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received a foreground notification
+    func receivedForegroundNotification(_ userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
+         Log.info(("The application received a foreground notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received  notification
+    func receivedNotificationResponse(_ notificationResponse: UNNotificationResponse, completionHandler: @escaping () -> Swift.Void) {
+        completionHandler()
+    }
+    
+    func extend(_ options: UNNotificationPresentationOptions = [], notification: UNNotification) -> UNNotificationPresentationOptions {
+    #if !targetEnvironment(macCatalyst)
+        if #available(iOS 14.0, *) {
+            return options.union([.banner, .list, .sound])
+        } else {
+            return options.union([.alert, .sound])
+        }
+    #else
+        return options.union([.alert, .sound])
+    #endif
+    }
+}
+
+  ```
 - Create a new Swift file named "PMPackageLogger.swift" and add the provided code for logging messages to a file.
+    ```swift
+//
+//  PMPackageLogger.swift
+//  SalesPlusFL
+//
+//  Created by tamilarasan_v on 18/11/24.
+//
+
+import Foundation
+import pcaf_mbl_fwrk_alog
+import pcaf_mbl_auth
+import pcaf_mbl_prmg
+
+typealias PMLogMetadata = pcaf_mbl_auth.LogMetadata
+
+protocol PMPackageLoggerProtocol {
+    func logAuthFileMessages(logType: PMLogLevel,
+                             message: String)
+    var fileLogger: LoggerProtocol? {get set}
+}
+
+class PMPackageLogger: PMPackageLoggerProtocol {
+    
+    internal var fileLogger: LoggerProtocol?
+    let logComposer: LogComposerFactory
+    let fileName: String
+
+    init(logComposer: LogComposerFactory,
+         fileName: String) {
+        self.logComposer = logComposer
+        self.fileName = fileName
+        createAuthLogInstance()
+    }
+}
+
+extension PMPackageLogger {
+    // Log to file
+    func logAuthFileMessages(logType: PMLogLevel,
+                             message: String) {
+        log(logType, message: message)
+    }
+}
+
+// MARK: Create file destination
+extension PMPackageLogger {
+    private func createAuthLogInstance() {
+        let loggerObj = logComposer.makeLogger(with: [SPConstant.authPrefix: [fileName]])
+        fileLogger = loggerObj
+    }
+}
+
+extension PMPackageLogger {
+    func log(_ level: PMLogLevel, message: String) {
+        let metaData = pcaf_mbl_fwrk_alog.LogMetadata(file: metaData.file, function: metaData.function,
+                                                      line: metaData.line)
+        switch level {
+        case .verbose:
+            fileLogger?.logVerbose(message: message, logFileName: fileName, context: nil, metadata:metaData)
+        case .warning:
+            fileLogger?.logWarning(message: message, logFileName: fileName, context: nil, metadata:metaData)
+        case .error:
+            fileLogger?.logCustom(level: .error, message: message, logFileName: fileName, context: nil, metadata:metaData)
+        }
+    }
+}
+
+  ```
 # Verify Info.plist Configuration:
 Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary.
 - Privacy Bluetooth Always Usage Description (Replace with your specific description).
@@ -38,7 +154,20 @@ Go to your Project Target settings and enable the following Background Modes.
 # Code snippets:
 - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 
+# Login.swift
 
+**A basic login screen implementation in Swift:**
+
+```swift
+
+```
+
+
+# Login.swift
+
+**A basic login screen implementation in Swift:**
+
+```swift
       
 
 ### Supported Devices and Frameworks
