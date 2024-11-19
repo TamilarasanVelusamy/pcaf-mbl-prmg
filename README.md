@@ -265,8 +265,58 @@ Open your project's Info.plist file and add the following key-value pairs under 
 ```
 # Airship Keys Configuration Based on Environment:
 - Add placeholder keys for Airship development and production app keys and secrets to your Info.plist file.
+```swift
+        AIRSHIP_DEV_APPKEY = $(AIRSHIP_DEV_APPKEY)
+        AIRSHIP_DEV_APPSECRETKEY = $(AIRSHIP_DEV_APPSECRETKEY)
+        AIRSHIP_PROD_APPKEY = $(AIRSHIP_PROD_APPKEY)
+        AIRSHIP_PROD_APPSECRETKEY = $(AIRSHIP_PROD_APPSECRETKEY)
+```
 - In your configuration files (Prod/QA/Debug), define the actual values for these keys.
+```swift
+     //Airship Keys
+        AIRSHIP_DEV_APPSECRETKEY = RezdZQ4PSgyrAMjKF6HKjg
+        AIRSHIP_DEV_APPKEY = uOUAFL2RTKuFlpxY7WB2Ew
+        AIRSHIP_PROD_APPSECRETKEY = jrq4VEiMTtydxpx6axNDoA
+        AIRSHIP_PROD_APPKEY = lfCxgSIeQTCxT6o7cAfK6Q
+```
 - Use the SPEnvironment class to fetch the appropriate key values based on the current environment.
+```swift
+ public enum SPEnvironment {
+    private static let infoDictionary: [String: Any] = {
+        guard let dict = Bundle.main.infoDictionary else {
+            return [:]
+        }
+        return dict
+    }()
+       static let airshipDevAppKey: String? = {
+        guard let appKey = infoDictionary["AIRSHIP_DEV_APPKEY"] as? String else {
+            return nil
+        }
+        return appKey
+    }()
+    static let airshipDevAppSecretKey: String? = {
+        guard let appSecretKey = infoDictionary["AIRSHIP_DEV_APPSECRETKEY"] as? String else {
+            return nil
+        }
+        return appSecretKey
+    }()
+    static let airshipProdAppKey: String? = {
+        guard let appKey = infoDictionary["AIRSHIP_PROD_APPKEY"] as? String else {
+            return nil
+        }
+        return appKey
+    }()
+    static let airshipProdAppSecretKey: String? = {
+        guard let appSecretKey = infoDictionary["AIRSHIP_PROD_APPSECRETKEY"] as? String else {
+            return nil
+        }
+        return appSecretKey
+    }()
+    }
+    
+    Airship Notifications call back has been handled in PushHandler with function **AppDelegate.instance.pmComposer.launchFirmwareUpdates()**
+    Function initiates the API to download Firmware updates if available.
+```
 # Device Management Enable Background Modes:
 Go to your Project Target settings and enable the following Background Modes.
 ```swift
