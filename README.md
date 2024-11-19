@@ -55,6 +55,53 @@ Key Constants:
 The document includes the definition of the LogFileNames enum for specifying the log file name.
 
 
+# Login.swift
+
+**A basic login screen implementation in Swift:**
+
+```swift
+
+import Foundation
+import AirshipCore
+
+class PushHandler: NSObject, PushNotificationDelegate {
+ 
+    ///  Application received a background notification
+    func receivedBackgroundNotification(_ userInfo: [AnyHashable: Any], completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+      
+         Log.info(("The application received a background notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received a foreground notification
+    func receivedForegroundNotification(_ userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
+         Log.info(("The application received a foreground notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received  notification
+    func receivedNotificationResponse(_ notificationResponse: UNNotificationResponse, completionHandler: @escaping () -> Swift.Void) {
+        completionHandler()
+    }
+    
+    func extend(_ options: UNNotificationPresentationOptions = [], notification: UNNotification) -> UNNotificationPresentationOptions {
+    #if !targetEnvironment(macCatalyst)
+        if #available(iOS 14.0, *) {
+            return options.union([.banner, .list, .sound])
+        } else {
+            return options.union([.alert, .sound])
+        }
+    #else
+        return options.union([.alert, .sound])
+    #endif
+    }
+}
+
+
+
+
 
 # Introduction 
 TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
