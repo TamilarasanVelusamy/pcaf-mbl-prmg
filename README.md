@@ -328,6 +328,15 @@ Go to your Project Target settings and enable the following Background Modes.
 ```
 # Launch Device Management View Function:
 - Use the function **AppDelegate.instance.pmComposer.launchDeviceManagement()** to launch the Device Management SwiftUI View within your app.
+```swift
+struct ContentView: View {
+var body: some View {
+VStack {
+AppDelegate.instance.pmComposer.launchDeviceManagement()
+}
+}
+}
+```
 # Static Key Constants to be added:
 ```swift
 enum LogFileNames: String, CaseIterable {
