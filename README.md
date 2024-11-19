@@ -254,10 +254,10 @@ Open your project's **Info.plist** file and add the following key-value pairs un
 - In your configuration files for each Environment (Prod/QA/Debug), define the actual values for the below keys.
 ```swift
      //Airship Keys
-        AIRSHIP_DEV_APPSECRETKEY = RezdZQ4PSgyrAMjKF6HKjg
-        AIRSHIP_DEV_APPKEY = uOUAFL2RTKuFlpxY7WB2Ew
-        AIRSHIP_PROD_APPSECRETKEY = jrq4VEiMTtydxpx6axNDoA
-        AIRSHIP_PROD_APPKEY = lfCxgSIeQTCxT6o7cAfK6Q
+        AIRSHIP_DEV_APPSECRETKEY = RezdXxXxXxXxF6HKjg
+        AIRSHIP_DEV_APPKEY = uOUAXxXxXxXxlpxY7WB2Ew
+        AIRSHIP_PROD_APPSECRETKEY = jrq4XxXxXxXxdxpx6axNDoA
+        AIRSHIP_PROD_APPKEY = lfCxgSIXxXxXxXxo7cAfK6Q
 ```
 - Use the SPEnvironment class to fetch the appropriate key values based on the selected environment.
 ```swift
@@ -323,7 +323,7 @@ enum LogFileNames: String, CaseIterable {
     case pmLogFileName = "FL_PMLog"
 }
 ```
-
+# Thank You
 
 
 # Code snippets:
