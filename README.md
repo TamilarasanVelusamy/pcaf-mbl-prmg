@@ -332,11 +332,10 @@ extension PMPackageLogger {
     5.Remote Notification
     
 # 6. Launch Device Management View Function :
-    Function returns Device Management SwiftUI View
-    Can be used directly in Body of SwiftUI View
+   ### Function returns Device Management SwiftUI View. Can be used directly in Body of SwiftUI View
     
     AppDelegate.instance.pmComposer.launchDeviceManagement() 
-    ######
+    
 
     
 # 7.  Airship Keys Configration based on Environment
@@ -401,8 +400,8 @@ extension PMPackageLogger {
 
 # 8. Key Constants to be added :
  
-## LogFileNames
-
+### LogFileNames
+######
 enum LogFileNames: String, CaseIterable {
     case pmLogFileName = "FL_PMLog"
 }
