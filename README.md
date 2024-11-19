@@ -14,7 +14,7 @@
 # Add Airship Package:
 - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL **https://github.com/urbanairship/ios-library.git**.
 # Register for Package Logs and Airship Notifications:
-- Add the provided code snippets for PMComposer, PMPackageLogger, and error handling to your AppDelegate's didFinishLaunchingWithOptions function in "AppDelegate.swift".
+- Add the provided code snippets for PMComposer, PMPackageLogger, and error handling to your AppDelegate's didFinishLaunchingWithOptions function in **"AppDelegate.swift"**.
 ```swift
   
 import pcaf_mbl_prmg
@@ -112,7 +112,7 @@ struct PMAErrorMessage {
 
 }
 ```
-- Create a new Swift file named "PushHandler.swift" and add the provided code for handling background and foreground notifications, as well as notification responses.
+- Create a new Swift file named **"PushHandler.swift"** and add the provided code for handling background and foreground notifications, as well as notification responses.
 ```swift
 
 import Foundation
@@ -153,7 +153,7 @@ class PushHandler: NSObject, PushNotificationDelegate {
     }
 }
 ```
-- Create a new Swift file named "PMPackageLogger.swift" and add the provided code for logging messages to a file.
+- Create a new Swift file named **"PMPackageLogger.swift"** and add the provided code for logging messages to a file.
 ```swift
   
 import Foundation
@@ -216,10 +216,10 @@ extension PMPackageLogger {
 
 ```
 # Verify Info.plist Configuration:
-Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary.
-- Privacy Bluetooth Always Usage Description (Replace with your specific description).
-- Privacy Bluetooth Peripheral Usage Description (Replace with your specific description).
-- Add the supported external accessory protocols for your devices under the UISupportedExternalAccessoryProtocols key (Refer to device documentation for specific protocol names).
+Open your project's **Info.plist** file and add the following key-value pairs under the Privacy dictionary.
+- Privacy Bluetooth Always Usage Description.
+- Privacy Bluetooth Peripheral Usage Description.
+- Add the supported external accessory protocols for your devices under the UISupportedExternalAccessoryProtocols key.
 ```swift
 <dict>
 
@@ -264,14 +264,14 @@ Open your project's Info.plist file and add the following key-value pairs under 
 </dict>
 ```
 # Airship Keys Configuration Based on Environment:
-- Add placeholder keys for Airship development and production app keys and secrets to your Info.plist file.
+- Add placeholder keys for Airship development and production app keys and secrets to your **Info.plist** file.
 ```swift
         AIRSHIP_DEV_APPKEY = $(AIRSHIP_DEV_APPKEY)
         AIRSHIP_DEV_APPSECRETKEY = $(AIRSHIP_DEV_APPSECRETKEY)
         AIRSHIP_PROD_APPKEY = $(AIRSHIP_PROD_APPKEY)
         AIRSHIP_PROD_APPSECRETKEY = $(AIRSHIP_PROD_APPSECRETKEY)
 ```
-- In your configuration files (Prod/QA/Debug), define the actual values for these keys.
+- In your configuration files for each Environment (Prod/QA/Debug), define the actual values for the below keys.
 ```swift
      //Airship Keys
         AIRSHIP_DEV_APPSECRETKEY = RezdZQ4PSgyrAMjKF6HKjg
@@ -279,7 +279,7 @@ Open your project's Info.plist file and add the following key-value pairs under 
         AIRSHIP_PROD_APPSECRETKEY = jrq4VEiMTtydxpx6axNDoA
         AIRSHIP_PROD_APPKEY = lfCxgSIeQTCxT6o7cAfK6Q
 ```
-- Use the SPEnvironment class to fetch the appropriate key values based on the current environment.
+- Use the SPEnvironment class to fetch the appropriate key values based on the selected environment.
 ```swift
  public enum SPEnvironment {
     private static let infoDictionary: [String: Any] = {
@@ -328,7 +328,12 @@ Go to your Project Target settings and enable the following Background Modes.
 ```
 # Launch Device Management View Function:
 - Use the function **AppDelegate.instance.pmComposer.launchDeviceManagement()** to launch the Device Management SwiftUI View within your app.
-
+# Static Key Constants to be added:
+```swift
+enum LogFileNames: String, CaseIterable {
+    case pmLogFileName = "FL_PMLog"
+}
+```
 
 
 
