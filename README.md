@@ -2,9 +2,10 @@
   1. Subfeature 1
      #####
      Privacy Bluetooth Always Usage Description (Replace with your specific description).
-  2. Subfeature 2
+     #####
+  3. Subfeature 2
      Privacy Bluetooth Always Usage Description (Replace with your specific description).
-  3. Subfeature 3
+  4. Subfeature 3
      Privacy Bluetooth Always Usage Description (Replace with your specific description).
 * **Feature B**
   1. Subfeature 1
