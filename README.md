@@ -5,40 +5,40 @@
 - Brother Printer: BRLMPrinterKit.xcframework
 - Unitech Scanner: FWUpdateSDK.xcframework 
 - HoneyWell Dex: frameworkDEXUpgradeSDK.xcframework (Disabled now)
-# Package Integration Steps:
-# Add pcaf-mbl-prmg Package:
-#####
+# pcaf-mbl-prmg Package Integration Steps:
+
 - Go to your project target settings.
 - Navigate to the "Swift Packages" tab.
 - Click the "+" button and choose "Add Package Dependency."
 - Paste the URL https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg in the search bar and click "Add Package."
 # Add Airship Package:
-#####
 - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
 # Register for Package Logs and Airship Notifications:
-#####
-- Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
+- Add the provided code snippets for PMComposer, PMPackageLogger, and error handling to your AppDelegate's didFinishLaunchingWithOptions function in "AppDelegate.swift".
+- Create a new Swift file named "PushHandler.swift" and add the provided code for handling background and foreground notifications, as well as notification responses.
+- Create a new Swift file named "PMPackageLogger.swift" and add the provided code for logging messages to a file.
 # Verify Info.plist Configuration:
 Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary.
-#####
 - Privacy Bluetooth Always Usage Description (Replace with your specific description).
 - Privacy Bluetooth Peripheral Usage Description (Replace with your specific description).
 - Add the supported external accessory protocols for your devices under the UISupportedExternalAccessoryProtocols key (Refer to device documentation for specific protocol names).
 # Airship Keys Configuration Based on Environment:
-Add placeholder keys for Airship development and production app keys and secrets to your Info.plist file.
-In your configuration files (Prod/QA/Debug), define the actual values for these keys.
-Use the SPEnvironment class to fetch the appropriate key values based on the current environment.
+- Add placeholder keys for Airship development and production app keys and secrets to your Info.plist file.
+- In your configuration files (Prod/QA/Debug), define the actual values for these keys.
+- Use the SPEnvironment class to fetch the appropriate key values based on the current environment.
 # Device Management Enable Background Modes:
-#####
 Go to your Project Target settings and enable the following Background Modes.
 - External Accessory Communication.
 - Uses Bluetooth LE accessory.
 - Background Fetch.
 - Background Processing.
 - Remote Notification.
+# Launch Device Management View Function:
+- Use the function AppDelegate.instance.pmComposer.launchDeviceManagement() to launch the Device Management SwiftUI View within your app.
 # Code snippets:
-  #####
-    - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
+- Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
+
+
       
 
 ### Supported Devices and Frameworks
