@@ -1,8 +1,8 @@
 
-# Integrating pcaf-mbl-prmg Framework and Dependencies
-  This document outlines the steps to integrate the pcaf-mbl-prmg framework and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications. 
-# Supported Devices and Frameworks:
-  The document details supported devices and their corresponding frameworks:
+# Integrating pcaf-mbl-prmg Swift Package and Dependencies
+  This document outlines the steps to integrate the pcaf-mbl-prmg using SPM and its dependencies for managing peripheral devices and receiving firmware updates through Airship notifications. 
+# Supported External Devices and their xcFrameworks:
+  The document details supported devices and their corresponding xcframeworks:
 - Brother Printer: BRLMPrinterKit.xcframework
 - Unitech Scanner: FWUpdateSDK.xcframework 
 - HoneyWell Dex: frameworkDEXUpgradeSDK.xcframework (Disabled now)
