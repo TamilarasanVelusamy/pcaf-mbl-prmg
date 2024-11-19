@@ -6,15 +6,21 @@
 - Unitech Scanner: FWUpdateSDK.xcframework 
 - HoneyWell Dex: frameworkDEXUpgradeSDK.xcframework (Disabled now)
 # Package Integration Steps:
-- Add pcaf-mbl-prmg Package:
+1). Add pcaf-mbl-prmg Package:
   #####
-    1) Go to your project target settings.
-    2) Navigate to the "Swift Packages" tab.
-    3) Click the "+" button and choose "Add Package Dependency."
-    4) Paste the URL https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg in the search bar and click "Add Package."
-- Add Airship Package:
+    - Go to your project target settings.
+    - Navigate to the "Swift Packages" tab.
+    - Click the "+" button and choose "Add Package Dependency."
+    - Paste the URL https://PepsiCoIT@dev.azure.com/PepsiCoIT/Commercial_IT/_git/pcaf-mbl-prmg in the search bar and click "Add Package."
+2). Add Airship Package:
   #####
-    1) Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
+    - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
+3). Add Airship Package:
+  #####
+    - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
+4). Add Airship Package:
+  #####
+    - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL https://github.com/urbanairship/ios-library.git.
       
 
 ### Supported Devices and Frameworks
