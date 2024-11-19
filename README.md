@@ -52,8 +52,8 @@ If you want to learn more about creating good readme files then refer the follow
 
     Add the lines of code in AppDelegate.swift inside function didFinishLaunchingWithOptions
 
-###### Copy Code Contents for AppDelegate
-        
+ Copy Code Contents for AppDelegate
+######     
 import pcaf_mbl_prmg
 import AirshipCore
 
@@ -89,6 +89,7 @@ class AppDelegate: NSObject, RegistrationDelegate, UIApplicationDelegate {
 }
 
 // pcaf_mbl_prmg Extension
+######
 extension AppDelegate {
     
     /**
@@ -147,6 +148,7 @@ extension AppDelegate {
     }
     
 }
+######
 struct PMAErrorMessage {
     static let invalidConfigration = "Invalid AirshipConfig.plist"
     static let airShipConfigMsg = "The AirshipConfig.plist must be a part of the app bundle and include a valid appkey and secret for the selected production level."
@@ -164,8 +166,8 @@ struct PMAErrorMessage {
 ## Copy Code Contents for PushHandler
     Copy the code contents for PushHandler as Below
     
-###### PushHandler.swift Start
-
+ PushHandler.swift Start
+######
 
 import Foundation
 import AirshipCore
@@ -220,8 +222,8 @@ class PushHandler: NSObject, PushNotificationDelegate {
     Copy the code contents for PMPackageLogger as Below
     
 
-###### PMPackageLogger.swift Start
-
+ PMPackageLogger.swift Start
+######
 
 import Foundation
 import pcaf_mbl_fwrk_alog
@@ -343,20 +345,20 @@ Add the keys in info.Plist and fetch from Config files based on environment
         AIRSHIP_DEV_APPSECRETKEY = $(AIRSHIP_DEV_APPSECRETKEY)
         AIRSHIP_PROD_APPKEY = $(AIRSHIP_PROD_APPKEY)
         AIRSHIP_PROD_APPSECRETKEY = $(AIRSHIP_PROD_APPSECRETKEY)
-
+######
 These keys are used to set up Airship in Appdelegate.
         config.developmentAppKey = SPEnvironment.airshipDevAppKey
         config.developmentAppSecret = SPEnvironment.airshipDevAppSecretKey
         config.productionAppKey = SPEnvironment.airshipProdAppKey
         config.productionAppSecret = SPEnvironment.airshipProdAppSecretKey
-        
+   ######     
 ## In Configs File (Prod/QA/Debug) :
         //Airship Keys
         AIRSHIP_DEV_APPSECRETKEY = RezdZQ4PSgyrAMjKF6HKjg
         AIRSHIP_DEV_APPKEY = uOUAFL2RTKuFlpxY7WB2Ew
         AIRSHIP_PROD_APPSECRETKEY = jrq4VEiMTtydxpx6axNDoA
         AIRSHIP_PROD_APPKEY = lfCxgSIeQTCxT6o7cAfK6Q
-
+######
 ## Fetch Keys from Config Files based on Environment
     public enum SPEnvironment {
     private static let infoDictionary: [String: Any] = {
