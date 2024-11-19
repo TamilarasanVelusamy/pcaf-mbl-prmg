@@ -135,6 +135,55 @@ struct PMAErrorMessage {
 
 }
 ```
+# PushHandler.swift
+```swift
+
+//
+//  PushHandler.swift
+//  SalesPlusFL
+//
+//  Created by tamilarasan_v on 18/11/24.
+//
+
+import Foundation
+import AirshipCore
+
+class PushHandler: NSObject, PushNotificationDelegate {
+ 
+    ///  Application received a background notification
+    func receivedBackgroundNotification(_ userInfo: [AnyHashable: Any], completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+      
+         Log.info(("The application received a background notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received a foreground notification
+    func receivedForegroundNotification(_ userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
+         Log.info(("The application received a foreground notification"), app: .salesplusfl)
+    // FW Update  - Call Firmware Update API Service Call in  pcaf_mbl_prmg
+        AppDelegate.instance.pmComposer.launchFirmwareUpdates()
+    }
+    
+    /// Application received  notification
+    func receivedNotificationResponse(_ notificationResponse: UNNotificationResponse, completionHandler: @escaping () -> Swift.Void) {
+        completionHandler()
+    }
+    
+    func extend(_ options: UNNotificationPresentationOptions = [], notification: UNNotification) -> UNNotificationPresentationOptions {
+    #if !targetEnvironment(macCatalyst)
+        if #available(iOS 14.0, *) {
+            return options.union([.banner, .list, .sound])
+        } else {
+            return options.union([.alert, .sound])
+        }
+    #else
+        return options.union([.alert, .sound])
+    #endif
+    }
+}
+
+```
 # PMPackageLogger.swift
 ```swift
 //  PMPackageLogger.swift
