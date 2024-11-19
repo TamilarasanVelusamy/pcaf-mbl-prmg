@@ -287,18 +287,16 @@ extension PMPackageLogger {
 
 
 # 4. Verify Info.plist Configuration:
-######
+
   ##  Open your project's Info.plist file.
     Add the following key-value pairs under the Privacy dictionary:
     Privacy - Bluetooth Always Usage Description: "This app needs Bluetooth to communicate with printers, scanners, and other devices." (Replace with your specific description)
     Privacy - Bluetooth Peripheral Usage Description: "This app uses Bluetooth to connect to printers, scanners, and other devices." (Replace with your specific description)
-
-######
-    
 ## Under the Supported external accessory protocols key, add the protocols supported by your printers, scanners, and dex modules. (Refer to their documentation for specific protocol names)
 
-######    
+    
 ## Info.Plist
+######
 <dict>
     <key>UISupportedExternalAccessoryProtocols</key>
     <array>
@@ -320,7 +318,8 @@ extension PMPackageLogger {
     <key>NSBluetoothPeripheralUsageDescription</key>
     <string>Please allow Bluetooth peripherals to be used</string>
 </dict>
-    
+
+######  
  
 # 5. Device Management Enable Background Modes :
 ######
