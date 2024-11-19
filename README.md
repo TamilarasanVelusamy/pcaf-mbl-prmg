@@ -149,6 +149,7 @@ extension AppDelegate {
     
 }
 ######
+## PMAErrorMessage
 struct PMAErrorMessage {
     static let invalidConfigration = "Invalid AirshipConfig.plist"
     static let airShipConfigMsg = "The AirshipConfig.plist must be a part of the app bundle and include a valid appkey and secret for the selected production level."
@@ -163,10 +164,10 @@ struct PMAErrorMessage {
     Select Swift File from the iOS section, then click Next.
     Choose a suitable location for the file  and name it PushHandler.
 
-## Copy Code Contents for PushHandler
+ Copy Code Contents for PushHandler
     Copy the code contents for PushHandler as Below
     
- PushHandler.swift Start
+ ## PushHandler.swift Start
 ######
 
 import Foundation
@@ -218,11 +219,11 @@ class PushHandler: NSObject, PushNotificationDelegate {
     Select Swift File from the iOS section, then click Next.
     Choose a suitable location for the file  and name it PushHandler.
 
-## Copy Code Contents for PMPackageLogger
+     Copy Code Contents for PMPackageLogger
     Copy the code contents for PMPackageLogger as Below
     
 
- PMPackageLogger.swift Start
+ ## PMPackageLogger.swift Start
 ######
 
 import Foundation
@@ -282,25 +283,10 @@ extension PMPackageLogger {
         }
     }
 }
-
-
-
 ## PMPackageLogger.swift End
 
 
-    
- 
-# 4. Device Management Enable Background Modes :
-######
-    Go to Project Target and check/enable the below options in Background Modes
-    
-    1.External accessory Communication
-    2.Uses Bluetooth LE accessory
-    3.Background Fetch
-    4.Background Processing
-    5.Remote Notification
- 
-# 5. Verify Info.plist Configuration:
+# 4. Verify Info.plist Configuration:
 ######
   ##  Open your project's Info.plist file.
     Add the following key-value pairs under the Privacy dictionary:
@@ -334,6 +320,17 @@ extension PMPackageLogger {
     <key>NSBluetoothPeripheralUsageDescription</key>
     <string>Please allow Bluetooth peripherals to be used</string>
 </dict>
+    
+ 
+# 5. Device Management Enable Background Modes :
+######
+    Go to Project Target and check/enable the below options in Background Modes
+    
+    1.External accessory Communication
+    2.Uses Bluetooth LE accessory
+    3.Background Fetch
+    4.Background Processing
+    5.Remote Notification
     
 # 6. Launch Device Management View Function :
     Function returns Device Management SwiftUI View
@@ -404,11 +401,11 @@ extension PMPackageLogger {
         
 
 # 8. Key Constants to be added :
-
-###### 
+ 
 ## LogFileNames
+
 enum LogFileNames: String, CaseIterable {
     case pmLogFileName = "FL_PMLog"
 }
-
+######
 
