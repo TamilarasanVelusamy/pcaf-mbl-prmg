@@ -29,7 +29,7 @@
 - Follow steps similar to adding the pcaf-mbl-prmg package, but use the URL **https://github.com/urbanairship/ios-library.git**.
 # Register for Package Logs and Airship Notifications:
 - Add the provided code snippets for PMComposer, PMPackageLogger, and error handling to your AppDelegate's didFinishLaunchingWithOptions function in "AppDelegate.swift".
-  ```swift
+```swift
   
 import pcaf_mbl_prmg
 import AirshipCore
@@ -125,9 +125,10 @@ struct PMAErrorMessage {
     static let okayTitle = "Okay"
 
 }
-  ```
+```
+# Register 
 - Create a new Swift file named "PushHandler.swift" and add the provided code for handling background and foreground notifications, as well as notification responses.
-  ```swift
+```swift
 
 import Foundation
 import AirshipCore
@@ -166,9 +167,10 @@ class PushHandler: NSObject, PushNotificationDelegate {
     #endif
     }
 }
-  ```
+```
+# Register 
 - Create a new Swift file named "PMPackageLogger.swift" and add the provided code for logging messages to a file.
-  ```swift
+```swift
   
 import Foundation
 import pcaf_mbl_fwrk_alog
@@ -228,7 +230,7 @@ extension PMPackageLogger {
     }
 }
 
-  ```
+```
 # Verify Info.plist Configuration:
 Open your project's Info.plist file and add the following key-value pairs under the Privacy dictionary.
 - Privacy Bluetooth Always Usage Description (Replace with your specific description).
